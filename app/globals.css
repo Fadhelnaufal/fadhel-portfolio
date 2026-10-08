@@ -1,26 +1,110 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFFFF;
+  --foreground: #18181B;
+  --muted: #71717A;
+  --surface: #FBFBFB;
+  --surface-subtle: #FAFAFA;
+  --border: #E4E4E7;
+  --accent: #18181B;
+  --accent-foreground: #FFFFFF;
+  --inverse: #18181B;
+  --inverse-foreground: #FFFFFF;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-inverse: var(--inverse);
+  --color-inverse-foreground: var(--inverse-foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* ─────────────────────────────────────────────
+   Hero — Display Typography
+   Fluid type for the "Fadhel" identity mark.
+   Uses clamp(): min 5rem → 18vw preferred → 14rem max.
+   No text-stroke, no gradient fill.
+───────────────────────────────────────────── */
+.hero-name {
+  font-size: clamp(5rem, 18vw, 14rem);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  /* Entrance animation — consolidated with animation declaration below */
+  animation: hero-reveal 0.7s ease-out 0.2s both;
+}
+
+/* ─────────────────────────────────────────────
+   Hero — Entrance Animation
+   Subtle reveal: opacity + small translateY.
+   Staggered via animation-delay on each element.
+   CSS-only — no JavaScript motion library.
+───────────────────────────────────────────── */
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.hero-eyebrow {
+  animation: hero-reveal 0.5s ease-out 0.05s both;
+}
+
+.hero-discipline {
+  animation: hero-reveal 0.5s ease-out 0.3s both;
+}
+
+.hero-rule {
+  animation: hero-reveal 0.5s ease-out 0.4s both;
+}
+
+.hero-tagline {
+  animation: hero-reveal 0.5s ease-out 0.45s both;
+}
+
+.hero-actions {
+  animation: hero-reveal 0.5s ease-out 0.55s both;
+}
+
+/* ─────────────────────────────────────────────
+   Reduced Motion
+   All hero animations disabled for users who
+   prefer reduced motion.
+   All elements remain fully visible.
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-name,
+  .hero-eyebrow,
+  .hero-discipline,
+  .hero-rule,
+  .hero-tagline,
+  .hero-actions {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
